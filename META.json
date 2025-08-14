@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-08-14T10:19:59.598Z",
+  "generatedAt": "2025-08-14T10:42:55.070Z",
   "exchanges": [
     "BINANCE",
     "OKX",
@@ -12,5 +12,11 @@
     "lists/OKX_BTC_PAIRS.txt",
     "lists/MEXC_BTC_PAIRS.txt",
     "lists/KUCOIN_BTC_PAIRS.txt"
+  ],
+  "binanceHostsTried": [
+    "api1.binance.com",
+    "api-gcp.binance.com",
+    "api4.binance.com",
+    "api.binance.com"
   ]
 }
