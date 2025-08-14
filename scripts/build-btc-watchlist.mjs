@@ -11,10 +11,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const OUT_DIR = path.join(__dirname, "..", "lists");
-const EXCHANGES = ["binance", "okx", "mexc", "coinbase", "kucoin"];
+const EXCHANGES = ["binance", "okx", "mexc", "kucoin", "coinbase"];
 const QUOTE = "BTC";
 
-// Binance host fallback list
 const BINANCE_HOSTS = [
 	process.env.BINANCE_HOST?.trim(),
 	"api1.binance.com",
@@ -82,46 +81,48 @@ async function main() {
 
 	/** @type {Record<string, string[]>} */
 	const byExchange = {};
+	const metaFiles = [];
 
 	for (const id of EXCHANGES) {
 		const up = id.toUpperCase();
 		try {
 			const lines = await fetchExchangePairs(id);
-			byExchange[up] = lines;
-			console.log(`[${up}] fetched ${lines.length} symbols`);
+
+			if (lines.length > 0) {
+				byExchange[up] = lines;
+				const file = path.join(OUT_DIR, `${up}_BTC_PAIRS.txt`);
+				fs.writeFileSync(file, lines.join("\n") + "\n", "utf8");
+				metaFiles.push(`lists/${up}_BTC_PAIRS.txt`);
+				console.log(`[${up}] wrote file with ${lines.length} symbols`);
+			} else {
+				console.warn(`[${up}] skipped — no pairs found`);
+				byExchange[up] = [];
+			}
 		} catch (e) {
 			console.error(`[${up}] failed:`, e?.message || e);
 			byExchange[up] = [];
 		}
 	}
 
-	// Write per-exchange files
-	for (const up of EXCHANGES.map((x) => x.toUpperCase())) {
-		const file = path.join(OUT_DIR, `${up}_BTC_PAIRS.txt`);
-		const lines = byExchange[up] || [];
-		fs.writeFileSync(file, lines.join("\n") + "\n", "utf8");
-		console.log(`Wrote ${file} (${lines.length} symbols)`);
+	// Combined file: only from exchanges that had results
+	const combined = EXCHANGES.map((id) => byExchange[id.toUpperCase()])
+		.flat()
+		.filter(Boolean);
+
+	if (combined.length > 0) {
+		const allFile = path.join(OUT_DIR, "ALL_BTC_PAIRS.txt");
+		fs.writeFileSync(allFile, combined.join("\n") + "\n", "utf8");
+		metaFiles.unshift("lists/ALL_BTC_PAIRS.txt");
+		console.log(`Wrote ${allFile} (${combined.length} symbols)`);
+	} else {
+		console.warn("No pairs found for any exchange — skipping ALL_BTC_PAIRS.txt");
 	}
-
-	// Combined file: grouped by exchange in EXCHANGES order
-	const combined = EXCHANGES.map((id) => byExchange[id.toUpperCase()]).flat();
-
-	const allFile = path.join(OUT_DIR, "ALL_BTC_PAIRS.txt");
-	fs.writeFileSync(allFile, combined.join("\n") + "\n", "utf8");
-	console.log(`Wrote ${allFile} (${combined.length} symbols)`);
 
 	// Metadata
 	const meta = {
 		generatedAt: new Date().toISOString(),
 		exchanges: EXCHANGES.map((e) => e.toUpperCase()),
-		files: [
-			"lists/ALL_BTC_PAIRS.txt",
-			"lists/BINANCE_BTC_PAIRS.txt",
-			"lists/OKX_BTC_PAIRS.txt",
-			"lists/MEXC_BTC_PAIRS.txt",
-			"lists/KUCOIN_BTC_PAIRS.txt",
-			"lists/COINBASE_BTC_PAIRS.txt",
-		],
+		files: metaFiles,
 		binanceHostsTried: BINANCE_HOSTS,
 	};
 	fs.writeFileSync(path.join(__dirname, "..", "META.json"), JSON.stringify(meta, null, 2));
