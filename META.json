@@ -1,9 +1,10 @@
 {
-  "generatedAt": "2025-08-14T10:42:55.070Z",
+  "generatedAt": "2025-08-14T10:47:25.387Z",
   "exchanges": [
     "BINANCE",
     "OKX",
     "MEXC",
+    "COINBASE",
     "KUCOIN"
   ],
   "files": [
@@ -11,7 +12,8 @@
     "lists/BINANCE_BTC_PAIRS.txt",
     "lists/OKX_BTC_PAIRS.txt",
     "lists/MEXC_BTC_PAIRS.txt",
-    "lists/KUCOIN_BTC_PAIRS.txt"
+    "lists/KUCOIN_BTC_PAIRS.txt",
+    "lists/COINBASE_BTC_PAIRS.txt"
   ],
   "binanceHostsTried": [
     "api1.binance.com",
