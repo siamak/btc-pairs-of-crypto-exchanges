@@ -11,6 +11,7 @@
 -   **BINANCE**
 -   **OKX**
 -   **MEXC**
+-   **COINBASE**
 -   **KUCOIN**
 
 The lists are refreshed **weekly** using [ccxt](https://github.com/ccxt/ccxt) and GitHub Actions.
@@ -19,21 +20,22 @@ The lists are refreshed **weekly** using [ccxt](https://github.com/ccxt/ccxt) an
 
 ## 📂 Outputs
 
-| File                          | Description                                | Link                                  |
-| ----------------------------- | ------------------------------------------ | ------------------------------------- |
-| `lists/ALL_BTC_PAIRS.txt`     | Combined list, grouped by exchange         | [View](./lists/ALL_BTC_PAIRS.txt)     |
-| `lists/BINANCE_BTC_PAIRS.txt` | BINANCE BTC pairs                          | [View](./lists/BINANCE_BTC_PAIRS.txt) |
-| `lists/OKX_BTC_PAIRS.txt`     | OKX BTC pairs                              | [View](./lists/OKX_BTC_PAIRS.txt)     |
-| `lists/MEXC_BTC_PAIRS.txt`    | MEXC BTC pairs                             | [View](./lists/MEXC_BTC_PAIRS.txt)    |
-| `lists/KUCOIN_BTC_PAIRS.txt`  | KUCOIN BTC pairs                           | [View](./lists/KUCOIN_BTC_PAIRS.txt)  |
-| `META.json`                   | Metadata (timestamp, exchanges, file list) | [View](./META.json)                   |
+| File                           | Description                                | Link                                   |
+| ------------------------------ | ------------------------------------------ | -------------------------------------- |
+| `lists/ALL_BTC_PAIRS.txt`      | Combined list, grouped by exchange         | [View](./lists/ALL_BTC_PAIRS.txt)      |
+| `lists/BINANCE_BTC_PAIRS.txt`  | BINANCE BTC pairs                          | [View](./lists/BINANCE_BTC_PAIRS.txt)  |
+| `lists/OKX_BTC_PAIRS.txt`      | OKX BTC pairs                              | [View](./lists/OKX_BTC_PAIRS.txt)      |
+| `lists/MEXC_BTC_PAIRS.txt`     | MEXC BTC pairs                             | [View](./lists/MEXC_BTC_PAIRS.txt)     |
+| `lists/COINBASE_BTC_PAIRS.txt` | COINBASE BTC pairs                         | [View](./lists/COINBASE_BTC_PAIRS.txt) |
+| `lists/KUCOIN_BTC_PAIRS.txt`   | KUCOIN BTC pairs                           | [View](./lists/KUCOIN_BTC_PAIRS.txt)   |
+| `META.json`                    | Metadata (timestamp, exchanges, file list) | [View](./META.json)                    |
 
 ---
 
 ## ✨ Features
 
 -   **Weekly auto-updates** via GitHub Actions
--   **Multiple exchanges** (BINANCE, OKX, MEXC, KUCOIN)
+-   **Multiple exchanges** (BINANCE, OKX, MEXC, COINBASE, KUCOIN)
 -   **TradingView-ready format** (`EXCHANGE:BASEBTC`)
 -   **Plain text output** (no JSON/CSV parsing needed)
 -   **Open source** & easy to extend
