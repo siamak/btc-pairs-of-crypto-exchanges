@@ -1,0 +1,20 @@
+{
+	"name": "btc-pairs-of-crypto-exchanges",
+	"version": "1.0.0",
+	"description": "TradingView-importable BTC-quoted spot pairs from Binance, OKX, MEXC, and KuCoin.",
+	"type": "module",
+	"author": "Siamak",
+	"repository": "https://github.com/siamak/btc-pairs-of-crypto-exchanges",
+	"private": false,
+	"scripts": {
+		"generate": "node scripts/build-btc-watchlist.mjs"
+	},
+	"dependencies": {
+		"ccxt": "^4.3.89"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"license": "MIT",
+	"packageManager": "pnpm@9.12.0"
+}

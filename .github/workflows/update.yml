@@ -1,0 +1,37 @@
+name: Update BTC Watchlists (weekly)
+
+on:
+    schedule:
+        - cron: "7 3 * * 1" # every Monday 03:07 UTC
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: pnpm
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9.12.0
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build watchlists
+              run: pnpm run generate
+
+            - name: Commit & push if changed
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                  commit_message: "chore: weekly refresh BTC watchlists"
+                  file_pattern: |
+                      lists/*.txt
+                      META.json

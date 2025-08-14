@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2025-08-14T10:19:59.598Z",
+  "exchanges": [
+    "BINANCE",
+    "OKX",
+    "MEXC",
+    "KUCOIN"
+  ],
+  "files": [
+    "lists/ALL_BTC_PAIRS.txt",
+    "lists/BINANCE_BTC_PAIRS.txt",
+    "lists/OKX_BTC_PAIRS.txt",
+    "lists/MEXC_BTC_PAIRS.txt",
+    "lists/KUCOIN_BTC_PAIRS.txt"
+  ]
+}

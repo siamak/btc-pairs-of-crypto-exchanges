@@ -1,0 +1,7 @@
+version: 2
+updates:
+    - package-ecosystem: "npm" # Dependabot treats pnpm projects as npm
+      directory: "/"
+      schedule:
+          interval: "weekly"
+      open-pull-requests-limit: 5
