@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2025-08-14T10:47:25.387Z",
+  "generatedAt": "2025-08-14T10:52:07.761Z",
   "exchanges": [
     "BINANCE",
     "OKX",
     "MEXC",
-    "COINBASE",
-    "KUCOIN"
+    "KUCOIN",
+    "COINBASE"
   ],
   "files": [
     "lists/ALL_BTC_PAIRS.txt",
