@@ -13,8 +13,8 @@ jobs:
 
       - name: Fetch Binance markets via curl
         run: |
-          curl -s https://api.binance.com/api/v3/exchangeInfo | jq '.symbols | length'
-          curl -s https://api.binance.com/api/v3/exchangeInfo
+          curl -s https://data-api.binance.vision/api/v3/exchangeInfo | jq '.symbols | length'
+          curl -s https://data-api.binance.vision/api/v3/exchangeInfo
       # Or, using Python:
       - name: Fetch markets via python-binance
         run: |
