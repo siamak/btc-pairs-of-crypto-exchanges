@@ -41,9 +41,14 @@ async function fetchBinancePairs() {
 			const binance = makeExchange("binance");
 
 			// Force override base URL for both public and private endpoints
-			binance.urls.api = {
-				public: `https://${host}/api/v3`,
-				private: `https://${host}/api/v3`,
+			binance.urls = {
+				...binance.urls,
+				api: {
+					public: `https://${host}/api/v3`,
+					private: `https://${host}/api/v3`,
+				},
+				www: `https://${host}`,
+				referral: undefined,
 			};
 
 			const lines = await loadBtcPairs(binance, "binance");
