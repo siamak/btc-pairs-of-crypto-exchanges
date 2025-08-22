@@ -14,7 +14,7 @@ const OUT_DIR = path.join(__dirname, "..", "lists");
 const EXCHANGES = ["binance", "okx", "mexc", "kucoin", "coinbase"];
 const QUOTE = "BTC";
 
-const BINANCE_HOSTS = [process.env.BINANCE_HOST?.trim(), "data-api.binance.vision"].filter(Boolean);
+const BINANCE_HOSTS = ["data-api.binance.vision", process.env.BINANCE_HOST?.trim()].filter(Boolean);
 
 function makeExchange(id, opts = {}) {
 	const Exchange = ccxt[id];
@@ -38,7 +38,14 @@ async function fetchBinancePairs() {
 	const errors = [];
 	for (const host of BINANCE_HOSTS) {
 		try {
-			const binance = makeExchange("binance", { hostname: host });
+			const binance = makeExchange("binance");
+
+			// Force override base URL for both public and private endpoints
+			binance.urls.api = {
+				public: `https://${host}/api/v3`,
+				private: `https://${host}/api/v3`,
+			};
+
 			const lines = await loadBtcPairs(binance, "binance");
 
 			if (lines.length === 0) {
