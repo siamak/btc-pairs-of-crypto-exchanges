@@ -14,7 +14,13 @@ const OUT_DIR = path.join(__dirname, "..", "lists");
 const EXCHANGES = ["binance", "okx", "mexc", "kucoin", "coinbase"];
 const QUOTE = "BTC";
 
-const BINANCE_HOSTS = ["data-api.binance.vision", process.env.BINANCE_HOST?.trim()].filter(Boolean);
+const BINANCE_HOSTS = [
+	process.env.BINANCE_HOST?.trim(),
+	"api1.binance.com",
+	"api-gcp.binance.com",
+	"api4.binance.com",
+	"api.binance.com",
+].filter(Boolean);
 
 function makeExchange(id, opts = {}) {
 	const Exchange = ccxt[id];
@@ -35,40 +41,26 @@ async function loadBtcPairs(exchange, id) {
 }
 
 async function fetchBinancePairs() {
-	const errors = [];
-	for (const host of BINANCE_HOSTS) {
-		try {
-			const binance = makeExchange("binance");
+	const endpoint = "https://precious-llama-47957b.netlify.app/.netlify/functions/binance-btc-pairs";
 
-			// Force override base URL for both public and private endpoints
-			binance.urls = {
-				...binance.urls,
-				api: {
-					public: `https://${host}/api/v3`,
-					private: `https://${host}/api/v3`,
-				},
-				www: `https://${host}`,
-				referral: undefined,
-			};
-
-			const lines = await loadBtcPairs(binance, "binance");
-
-			if (lines.length === 0) {
-				errors.push(`Host ${host} returned 0 pairs`);
-				console.warn(`[BINANCE] ${host}: returned 0 pairs, trying next host...`);
-				continue;
-			}
-
-			console.log(`[BINANCE] using host: ${host} (${lines.length} pairs)`);
-			return Array.from(new Set(lines)).sort();
-		} catch (e) {
-			const msg = e?.message || String(e);
-			errors.push(`Host ${host} error: ${msg}`);
-			console.warn(`[BINANCE] ${host}: ${msg} — trying next host...`);
+	try {
+		const response = await fetch(endpoint);
+		if (!response.ok) {
+			const body = await response.text();
+			console.error(`[BINANCE] Netlify API error: ${response.status}`);
+			console.error(body);
+			return [];
 		}
+
+		const json = await response.json();
+		const lines = json.pairs || [];
+
+		console.log(`[BINANCE] via Netlify: ${lines.length} pairs`);
+		return Array.from(new Set(lines)).sort();
+	} catch (err) {
+		console.error(`[BINANCE] Netlify fetch failed:`, err);
+		return [];
 	}
-	console.error("[BINANCE] All hosts failed:\n" + errors.map((x) => "- " + x).join("\n"));
-	return [];
 }
 
 async function fetchGenericPairs(id) {
