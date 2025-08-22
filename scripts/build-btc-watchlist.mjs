@@ -14,13 +14,7 @@ const OUT_DIR = path.join(__dirname, "..", "lists");
 const EXCHANGES = ["binance", "okx", "mexc", "kucoin", "coinbase"];
 const QUOTE = "BTC";
 
-const BINANCE_HOSTS = [
-	process.env.BINANCE_HOST?.trim(),
-	"api1.binance.com",
-	"api-gcp.binance.com",
-	"api4.binance.com",
-	"api.binance.com",
-].filter(Boolean);
+const BINANCE_HOSTS = [process.env.BINANCE_HOST?.trim(), "data-api.binance.vision"].filter(Boolean);
 
 function makeExchange(id, opts = {}) {
 	const Exchange = ccxt[id];
