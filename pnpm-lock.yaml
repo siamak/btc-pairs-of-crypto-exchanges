@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       ccxt:
-        specifier: ^4.5.3
-        version: 4.5.3
+        specifier: ^4.5.26
+        version: 4.5.26
 
 packages:
 
-  ccxt@4.5.3:
-    resolution: {integrity: sha512-hdTsPdLQD1pAHP9NvjnGoiP0YZ3wG4y8RxfemqdrspcrZR0IGqpFNEqoBOUTV/Q+jR/awLhbz3o8sFkYjytJ/Q==}
+  ccxt@4.5.26:
+    resolution: {integrity: sha512-kh2iJ5xWtD5lqO44qqmfBqm0F+g+frC7PeVwbQqJhW2kho/uQjBdOJmeehNxbY8qpFVuQkcfVUk1i/6YshuEsA==}
     engines: {node: '>=15.0.0'}
 
   ws@8.18.3:
@@ -32,7 +32,7 @@ packages:
 
 snapshots:
 
-  ccxt@4.5.3:
+  ccxt@4.5.26:
     dependencies:
       ws: 8.18.3
     transitivePeerDependencies:
